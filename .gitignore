@@ -1,0 +1,4 @@
+*.pyc
+*.pyo
+database
+__pycache__

@@ -1,0 +1,33 @@
+version: '3'
+services:
+  # users:
+  #   build: python-user
+  #   environment:
+  #     - FLASK_DEBUG=1
+  #   volumes:
+  #     - ./python-user/AppC:/root/UserApp
+  #   ports:
+  #     - "35000:5000"
+  #   command: flask run --host=0.0.0.0
+  mariadb:
+    image: mariadb:10
+    environment:
+      - MYSQL_ROOT_PASSWORD=mans
+      - MYSQL_DATABASE=dbbackend
+      - MYSQL_USER=dbbackend
+      - MYSQL_PASSWORD=dbbackend
+    volumes:
+      - ./database:/var/lib/mysql
+    ports:
+      - 33306:3306
+  users:
+    build: boilerplate
+    environment:
+      - FLASK_DEBUG=1
+      - FLASK_APP=app.py
+      #- PYTHONPATH=/root/UserApp/rest_api_demo
+    volumes:
+      - ./boilerplate/app:/root/UserApp
+    ports:
+      - "35000:5000"
+    command: "python app.py"
