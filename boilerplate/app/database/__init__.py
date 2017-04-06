@@ -8,6 +8,6 @@ app = Flask(__name__)
 from database import models
 
 def reset_database():
-    from database.models import Post, Category, User  # noqa
+    from database.models import User  # noqa
     db.drop_all()
     db.create_all()
