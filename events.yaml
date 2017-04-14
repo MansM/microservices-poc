@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: events
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: events
+    spec:
+      containers:
+      - name: events
+        image: mans/events:2
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        env:
+        - name: PYTHONPATH
+          value: "/root/UserApp/"

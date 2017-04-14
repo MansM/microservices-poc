@@ -1,4 +1,4 @@
-version: '3'
+version: "2"
 services:
   # users:
   #   build: python-user
@@ -21,13 +21,13 @@ services:
     ports:
       - 33306:3306
   users:
-    build: boilerplate
+    build: event
     environment:
       - FLASK_DEBUG=1
       - FLASK_APP=app.py
       #- PYTHONPATH=/root/UserApp/rest_api_demo
     volumes:
-      - ./boilerplate/app:/root/UserApp
+      - ./event/app:/root/UserApp
     ports:
       - "35000:5000"
     command: "python app.py"

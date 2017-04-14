@@ -1,2 +1,5 @@
 *.py[cod]
 __pycache__
+rest_api_demo
+boilerplate/app/db_repository/
+mariadb-0.6.0.tgz
