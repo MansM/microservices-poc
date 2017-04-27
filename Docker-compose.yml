@@ -9,7 +9,8 @@ services:
   #   ports:
   #     - "35000:5000"
   #   command: flask run --host=0.0.0.0
-  mariadb:
+  eventsmariadb:
+    container_name: events-mariadb
     image: mariadb:10
     environment:
       - MYSQL_ROOT_PASSWORD=mans

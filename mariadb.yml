@@ -1,0 +1,40 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: mariadb
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: mariadb
+    spec:
+      containers:
+      - name: mariadb
+        image: mariadb:10
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 5000
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "dbbackend"
+        - name: MYSQL_USER
+          value: "dbbackend"
+        - name: MYSQL_PASSWORD
+          value: "dbbackend"
+        - name: MYSQL_DATABASE
+          value: "dbbackend"
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: events-mariadb
+spec:
+  selector:
+    app: mariadb
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+      nodePort: 32206
+  type: NodePort
