@@ -4,8 +4,10 @@ from flask import Flask, Blueprint
 import settings
 from api.endpoints.users import ns as users_namespace
 from api.endpoints.events import ns as events_namespace
+from api.endpoints.registrations import ns as registrations_namespace
 from api.restplus import api
 from database import db
+from datetime import datetime
 
 app = Flask(__name__)
 logging.config.fileConfig('logging.conf')
@@ -30,6 +32,7 @@ def initialize_app(flask_app):
     api.init_app(blueprint)
     api.add_namespace(users_namespace)
     api.add_namespace(events_namespace)
+    api.add_namespace(registrations_namespace)
     flask_app.register_blueprint(blueprint)
 
     db.init_app(flask_app)
@@ -39,6 +42,7 @@ def initialize_app(flask_app):
 def main():
     initialize_app(app)
     log.info('>>>>> Starting development server at http://{}/api/ <<<<<'.format(app.config['SERVER_NAME']))
+    log.info(datetime.now())
     app.run(debug=settings.FLASK_DEBUG, host=settings.FLASK_HOST)
 
 if __name__ == "__main__":

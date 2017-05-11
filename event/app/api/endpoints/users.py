@@ -2,7 +2,7 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-from api.business import create_user, delete_user, update_user
+from api.business.user import create_user, delete_user, update_user
 from api.serializers import user
 from api.restplus import api
 from database.models import User

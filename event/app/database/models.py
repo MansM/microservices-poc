@@ -21,12 +21,14 @@ class User(db.Model):
 class Event(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), index=True)
-    date = db.Column(db.DateTime, index=True)
+    date = db.Column(db.DateTime(timezone=False), index=True)
     location = db.Column(db.String(200))
     description = db.Column(db.Text)
     maxpeople = db.Column(db.Integer)
 
+    #def __init__(self, title, date, location, description, maxpeople):
     def __init__(self, title, date, location, description, maxpeople):
+
         self.title = title
         self.date = date
         self.location = location
@@ -35,3 +37,17 @@ class Event(db.Model):
 
     def __repr__(self):
         return '<Event %r>' % self.title
+
+class Registration(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # user = db.relationship('User', backref=db.backref('registrations', lazy='dynamic'))
+    event_id = db.Column(db.Integer, db.ForeignKey('event.id'))
+    # user = db.relationship('Event', backref=db.backref('registrations', lazy='dynamic'))
+
+    def __init__(self, user_id, event_id):
+        self.user_id = user_id
+        self.event_id = event_id
+
+    def __repr__(self):
+        return '<Registration %r>' % self.user_id

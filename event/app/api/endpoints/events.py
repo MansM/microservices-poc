@@ -2,10 +2,11 @@ import logging
 
 from flask import request
 from flask_restplus import Resource
-from api.business import create_event, delete_event, update_event
+from api.business.event import create_event, delete_event, update_event
 from api.serializers import event
 from api.restplus import api
 from database.models import Event
+from datetime import datetime
 
 log = logging.getLogger(__name__)
 
@@ -74,3 +75,15 @@ class EventItem(Resource):
         """
         delete_event(id)
         return None, 204
+
+@ns.route('/coming')
+class EventCollection(Resource):
+
+    @api.marshal_list_with(event)
+    def get(self):
+        
+        events = Event.query.filter(Event.date > datetime.now())
+
+        return events
+
+
